@@ -1,7 +1,7 @@
 # Seeing Speech: Learning Visible Articulatory Dynamics for Speech-Driven 3D Facial Animation
 ### [Project Page](https://cau-irislab.github.io/NeurIPS2026-SeeingSpeech/) | [Paper](#) | [Video](#)
 
-**NeurIPS 2026**
+**NeurIPS 2026 (Accepted)**
 
 ## Acknowledgments
 Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.
