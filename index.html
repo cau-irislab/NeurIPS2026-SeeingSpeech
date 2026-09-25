@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Search Engine -->
+  <meta name="description" content="Seeing Speech: an articulation-aware speech-driven 3D facial animation framework that models visible speech through directional articulatory motions (spreading, opening, protrusion).">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Seeing Speech: Learning Visible Articulatory Dynamics for Speech-Driven 3D Facial Animation" />
+  <meta property="og:description" content="An articulation-aware framework that models visible speech through directional articulatory motions and composes them into surface-consistent 3D facial motion." />
+  <!-- TODO: update once the GitHub Pages URL is fixed -->
+  <meta property="og:url" content="https://cau-irislab.github.io/NeurIPS2026-SeeingSpeech/"/>
+  <meta property="og:image" content="assets/images/fig1_teaser.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="Seeing Speech: Learning Visible Articulatory Dynamics for Speech-Driven 3D Facial Animation">
+  <meta name="twitter:description" content="An articulation-aware framework for speech-driven 3D facial animation grounded in visible articulation.">
+  <meta name="twitter:image" content="assets/images/fig1_teaser.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="speech-driven 3D facial animation, visible articulation, articulatory dynamics, memory network, talking head, NeurIPS 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Seeing Speech: Learning Visible Articulatory Dynamics</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/bulma.min.css">
+  <link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
+
+  <script defer src="assets/js/fontawesome.all.min.js"></script>
+  <!-- LaTeX rendering for inline math -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Seeing Speech: Learning Visible Articulatory Dynamics for Speech-Driven 3D Facial Animation</h1>
+            <h2 class="title is-3">NeurIPS 2026</h2>
+                  <div class="is-size-5 publication-authors">
+                    <!-- Paper authors -->
+                    <span class="author-block">
+                      <a href="https://kimhyungkyu-1208.github.io/HYUNG-KYU-KIM/" target="_blank">Hyung Kyu Kim</a>,</span>
+                    <span class="author-block">
+                      <a href="https://irislab.cau.ac.kr/" target="_blank">Byungchan Hwang</a>,</span>
+                    <span class="author-block">
+                      <a href="https://www.irislab.cau.ac.kr/home" target="_blank">Hak Gu Kim</a><sup>*</sup>
+                    </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">Chung-Ang University, Seoul, South Korea</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Corresponding Author</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <!-- Paper PDF link (TODO: replace with OpenReview / arXiv PDF) -->
+                      <span class="link-block">
+                        <a href="#" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- Supplementary video -->
+                    <span class="link-block">
+                      <a href="#video"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-video"></i>
+                      </span>
+                      <span>Video</span>
+                    </a>
+                  </span>
+
+                  <!-- Github link (TODO) -->
+                  <span class="link-block">
+                    <a href="#" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code (Coming Soon)</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link (TODO) -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image">
+        <img src="assets/images/fig1_teaser.png" alt="Visible mesh-surface anchors and three directional articulatory motions: spreading, opening, and protrusion.">
+      </figure>
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        How do we model physically grounded and articulatory-consistent facial motion from speech?
+        We describe visible articulation with three directional motions &mdash;
+        <i>spreading&ndash;rounding</i>, <i>opening&ndash;closing</i>, and <i>protrusion&ndash;retraction</i>.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser figure -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent progress in speech-driven 3D facial animation has improved vertex-level reconstruction quality, but speech-consistent visible articulation remains difficult. This is because speech production follows structured and constrained articulators' coordination and the mapping from acoustics to motion is inherently one-to-many. Motivated by the structured patterns of visible articulation, we propose a novel articulation-aware framework that models visible speech through directional articulatory motions and composes them into surface-consistent 3D facial motion. To represent visible articulation with three directional articulatory motions, spreading, opening, and protrusion, we propose a Speech&ndash;Articulatory Memory (SAM) that captures the correspondence between speech and these motions under phonetic context through retrieval and decoding based on a key-value memory structure. Then, a Topology-aware Articulatory Composition (TAC) integrates the predicted directional articulatory motions under mesh topology to produce surface-consistent 3D facial motion. Experiments on VOCASET and TFHP show that our method achieves state-of-the-art performance on standard reconstruction metrics and improves visible articulatory distance and velocity errors for lip articulation, while a user study confirms clear preference in lip sync and realism.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Supplementary video -->
+<section class="section" id="video">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Supplementary Video</h2>
+        <video poster="assets/images/video_poster.jpg" controls preload="metadata" width="100%">
+          <source src="assets/videos/supplementary_video.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered" style="margin-top: 0.5rem;">Please turn on the sound.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End supplementary video -->
+
+<!-- Proposed Method -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Proposed Method</h2>
+  </div>
+  <div class="container is-max-widescreen">
+    <figure class="image" style="margin-bottom: 2rem;">
+      <img src="assets/images/fig2_method.png" alt="Overall architecture: SAM retrieves directional articulatory motion features from speech; TAC composes them into surface-consistent 3D facial motion.">
+    </figure>
+  </div>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Given a facial template mesh, we represent visible articulation through three directional articulatory motions grounded in speech production:
+            horizontal <b>spreading</b> ($S$), vertical <b>opening</b> ($O$), and depth-wise <b>protrusion</b> ($P$).
+            The framework consists of two parts.
+          </p>
+          <p>
+            <b>Speech&ndash;Articulatory Memory (SAM).</b>
+            An acoustic query, encoded from the mel-spectrogram over a local phonetic window, addresses a learnable acoustic bridge memory.
+            The resulting addressing weights retrieve short-term motion feature sequences from three direction-specific value memories.
+            The retrieved features are then refined by cross-attention with HuBERT content features, predicting a directional articulatory motion for each of $S$, $O$, and $P$.
+            A memory store loss aligns the retrieved features with reference motion features, reducing one-to-many ambiguity in acoustic-to-motion mapping.
+          </p>
+          <p>
+            <b>Topology-aware Articulatory Composition (TAC).</b>
+            The three directional motions are stacked and composed over the facial surface.
+            A graph convolution on the mesh adjacency captures spatial coupling across vertices, a temporal convolutional network captures short-term dynamics,
+            and a learnable region-adaptive gate controls how strongly each facial region absorbs the topology-aware residual.
+            A graph Laplacian loss enforces local surface consistency.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Proposed Method -->
+
+<!-- Quantitative Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Quantitative Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our method achieves the lowest FVE, LVE, and LDTW on both VOCASET and TFHP, showing that articulatory modeling improves lip-region reconstruction while preserving overall reconstruction quality.
+          </p>
+        </div>
+
+        <div class="table-container">
+          <table class="table is-bordered is-narrow is-hoverable is-fullwidth result-table">
+            <thead>
+              <tr><th>Dataset</th><th>Method</th><th>FVE &darr;</th><th>LVE &darr;</th><th>FDD &darr;</th><th>LDTW &darr;</th></tr>
+            </thead>
+            <tbody>
+              <tr><td rowspan="9">VOCASET</td><td>FaceFormer</td><td>0.878</td><td>0.346</td><td>0.143</td><td>0.186</td></tr>
+              <tr><td>CodeTalker</td><td>0.913</td><td>0.397</td><td>0.160</td><td>0.204</td></tr>
+              <tr><td>SelfTalk</td><td>0.844</td><td>0.305</td><td>0.148</td><td>0.174</td></tr>
+              <tr><td>Imitator</td><td>0.898</td><td>0.384</td><td>0.179</td><td>0.199</td></tr>
+              <tr><td>ScanTalk</td><td>0.878</td><td>0.310</td><td>0.152</td><td>0.168</td></tr>
+              <tr><td>UniTalker</td><td>0.820</td><td>0.282</td><td><u>0.101</u></td><td>0.188</td></tr>
+              <tr><td>MemoryTalker</td><td>0.810</td><td><u>0.250</u></td><td>0.127</td><td><u>0.151</u></td></tr>
+              <tr><td>StreamingTalker</td><td><u>0.782</u></td><td>0.272</td><td>0.191</td><td>0.169</td></tr>
+              <tr class="ours"><td><b>Ours</b></td><td><b>0.771</b></td><td><b>0.235</b></td><td><b>0.097</b></td><td><b>0.132</b></td></tr>
+              <tr><td rowspan="4">TFHP</td><td>Mimic</td><td><u>0.106</u></td><td><u>0.116</u></td><td>0.619</td><td><u>0.329</u></td></tr>
+              <tr><td>DiffPoseTalk</td><td>0.176</td><td>0.159</td><td><b>0.321</b></td><td>0.382</td></tr>
+              <tr><td>ARTalk</td><td>0.206</td><td>0.164</td><td>0.581</td><td>0.385</td></tr>
+              <tr class="ours"><td><b>Ours</b></td><td><b>0.100</b></td><td><b>0.108</b></td><td><u>0.578</u></td><td><b>0.318</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="title is-5" style="margin-top: 2.5rem;">Visible Articulatory Distance &amp; Velocity Errors (VOCASET)</h3>
+        <div class="content has-text-justified">
+          <p>
+            We measure inter-commissural width (ICW, lip spreading), inter-labial distance (ILD, lip opening), and lip protrusion (LP) from lip-surface anchors.
+            Our method achieves the lowest distance errors on all three measures and the lowest velocity errors on ILD and LP.
+          </p>
+        </div>
+        <div class="table-container">
+          <table class="table is-bordered is-narrow is-hoverable is-fullwidth result-table">
+            <thead>
+              <tr><th rowspan="2">Method</th><th colspan="3">Distance Error</th><th colspan="3">Velocity Error</th></tr>
+              <tr><th>ICW &darr;</th><th>ILD &darr;</th><th>LP &darr;</th><th>ICW &darr;</th><th>ILD &darr;</th><th>LP &darr;</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FaceFormer</td><td>1.764</td><td>4.558</td><td>2.429</td><td>0.581</td><td>1.850</td><td>1.230</td></tr>
+              <tr><td>CodeTalker</td><td>1.725</td><td>4.777</td><td>2.808</td><td>0.552</td><td>2.009</td><td>1.343</td></tr>
+              <tr><td>SelfTalk</td><td>1.680</td><td>4.031</td><td>2.470</td><td>0.544</td><td>1.958</td><td>1.275</td></tr>
+              <tr><td>Imitator</td><td>1.731</td><td>4.851</td><td>2.526</td><td>0.571</td><td>1.873</td><td>1.205</td></tr>
+              <tr><td>ScanTalk</td><td>1.737</td><td>4.034</td><td>2.485</td><td>0.558</td><td>1.854</td><td>1.285</td></tr>
+              <tr><td>UniTalker</td><td><u>1.585</u></td><td>3.887</td><td>2.532</td><td>0.541</td><td><u>1.627</u></td><td>1.211</td></tr>
+              <tr><td>MemoryTalker</td><td>1.626</td><td><u>3.679</u></td><td><u>2.347</u></td><td>0.560</td><td>1.813</td><td>1.224</td></tr>
+              <tr><td>StreamingTalker</td><td>1.658</td><td>3.955</td><td>2.478</td><td><b>0.507</b></td><td>1.645</td><td><u>1.187</u></td></tr>
+              <tr class="ours"><td><b>Ours</b></td><td><b>1.568</b></td><td><b>3.407</b></td><td><b>2.346</b></td><td><u>0.521</u></td><td><b>1.613</b></td><td><b>1.177</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="is-size-7 has-text-grey">Best in <b>bold</b>, second best <u>underlined</u>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Quantitative Results -->
+
+<!-- Directional tendency -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Directional Articulatory Tendency</h2>
+        <figure class="image" style="margin-bottom: 2rem;">
+          <img src="assets/images/fig3_radar.png" alt="Radar plot of directional lip-motion tendency strength relative to ground truth.">
+        </figure>
+        <div class="content has-text-justified">
+          <p>
+            Beyond per-frame accuracy, we check whether each method preserves the relative magnitude of directional articulatory motions.
+            For each paired motion (e.g., opening&ndash;closing), we compare predicted and ground-truth magnitudes and plot them relative to the ground truth (1.0).
+            Our method stays closest to the ground truth across all directions, indicating more balanced directional articulation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Directional tendency -->
+
+<!-- Qualitative Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Results</h2>
+
+        <h3 class="title is-5">Sequence-Level Mesh Comparisons</h3>
+        <figure class="image" style="margin-bottom: 1.5rem;">
+          <img src="assets/images/fig4_qualitative.png" alt="Sequence-level qualitative results on TFHP with per-vertex L1 error maps.">
+        </figure>
+        <div class="content has-text-justified">
+          <p>
+            Mesh renderings (top) and per-vertex L1 error maps against the ground truth (bottom, 0 in blue to 0.015 in red) on TFHP at phoneme-aligned frames.
+            Our method produces distinct articulatory configurations at salient phonemes with low errors across the lips and lower face,
+            while the upper face remains comparable to competing methods.
+          </p>
+        </div>
+
+        <h3 class="title is-5" style="margin-top: 2.5rem;">Slit-Scan Visualization</h3>
+        <figure class="image" style="margin-bottom: 1.5rem;">
+          <img src="assets/images/fig5_slitscan.png" alt="Slit-scan visualizations of horizontal and vertical lip trajectories over time.">
+        </figure>
+        <div class="content has-text-justified">
+          <p>
+            (a) Lip ROI and landmarks defining the horizontal (LMC&ndash;RMC) and vertical (UL&ndash;LL) slit lines.
+            (b) Horizontal and (c) vertical slit-scans over time for the utterance <i>adopted</i>.
+            Our trajectories show distinct rounding/spreading and opening/closing patterns with steeper slopes at articulatory transitions, matching the ground truth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Qualitative Results -->
+
+<!-- Trajectory analysis -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Directional Articulatory Trajectories</h2>
+        <figure class="image" style="margin: 0 auto 2rem; max-width: 560px;">
+          <img src="assets/images/fig6_trajectory.png" alt="Directional articulatory trajectories aligned with the speech waveform.">
+        </figure>
+        <div class="content has-text-justified">
+          <p>
+            Trajectories along spreading&ndash;rounding, opening&ndash;closing, and protrusion&ndash;retraction, aligned with the speech waveform and per-phoneme mesh renderings.
+            Baselines deviate in direction-specific ways: flat opening trajectories at opening-dominant phonemes (e.g., /aɪ/, /æ/, /aʊ/),
+            attenuated protrusion at protrusion-dominant phonemes (e.g., /tr/, /v/), or noisy spreading at high-magnitude segments.
+            Our method closely follows the ground truth in all three directions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Trajectory analysis -->
+
+<!-- User study -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">User Study</h2>
+        <div class="content has-text-justified">
+          <p>
+            Pairwise A/B preference study on VOCASET with 24 valid participants (15 clips per competitor).
+            Our method is preferred over every competitor, with average preference of <b>70.3%</b> for lip sync and <b>70.7%</b> for realism
+            (one-sided binomial test, $p&lt;0.0001$ for every competitor).
+          </p>
+        </div>
+        <div class="table-container">
+          <table class="table is-bordered is-narrow is-hoverable result-table" style="margin: 0 auto;">
+            <thead>
+              <tr><th>Ours vs.</th><th>Lip Sync (% Ours)</th><th>Realism (% Ours)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FaceFormer</td><td>71.3</td><td>65.7</td></tr>
+              <tr><td>CodeTalker</td><td>72.2</td><td>75.0</td></tr>
+              <tr><td>Imitator</td><td>77.8</td><td>73.1</td></tr>
+              <tr><td>ScanTalk</td><td>73.1</td><td>79.6</td></tr>
+              <tr><td>UniTalker</td><td>65.7</td><td>67.6</td></tr>
+              <tr><td>MemoryTalker</td><td>63.8</td><td>68.5</td></tr>
+              <tr><td>StreamingTalker</td><td>68.5</td><td>65.7</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End User study -->
+
+
+<!--BibTex citation -->
+  <section class="section hero is-light" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{kim2026seeingspeech,
+  author    = {Kim, Hyung Kyu and Hwang, Byungchan and Kim, Hak Gu},
+  title     = {Seeing Speech: Learning Visible Articulatory Dynamics for Speech-Driven 3D Facial Animation},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+  </html>

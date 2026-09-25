@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Seeing Speech favicon: open lips + sound waves -->
+  <rect width="64" height="64" rx="14" fill="#1f2a44"/>
+  <!-- upper lip -->
+  <path d="M8 32 C14 22, 20 20, 25 24 C28 26, 30 26, 32 25 C34 26, 36 26, 39 24 C44 20, 50 22, 56 32 C46 30, 38 30, 32 31 C26 30, 18 30, 8 32 Z" fill="#ff6b6b"/>
+  <!-- lower lip -->
+  <path d="M8 32 C18 34, 26 35, 32 35 C38 35, 46 34, 56 32 C50 44, 42 48, 32 48 C22 48, 14 44, 8 32 Z" fill="#ff6b6b"/>
+  <!-- mouth opening -->
+  <path d="M14 32 C22 31, 28 31, 32 31.5 C36 31, 42 31, 50 32 C44 36, 38 37, 32 37 C26 37, 20 36, 14 32 Z" fill="#1f2a44"/>
+  <!-- sound waves -->
+  <path d="M46 12 C50 14, 52 16, 53 19" stroke="#7cc4ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M48 5 C54 8, 58 12, 59 17" stroke="#7cc4ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
